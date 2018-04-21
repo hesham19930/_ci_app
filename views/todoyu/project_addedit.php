@@ -157,7 +157,7 @@ automation_url = "[get_from_caller]">
 
 r_theme_row_start();
 r_theme_section_start(12, array("id" => "hesham", "attributes" => array(
-        'class' => 'autoload hide ',
+        'class' => 'autoload hide new',
         'url' => site_url('todoyu/projects/ajax_edit/').'/'.$project_id.'/'.'main_view')));
 echo '<div align="center">123</div>';
 r_theme_section_end();

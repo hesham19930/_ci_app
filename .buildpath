@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="config"/>
+	<buildpathentry kind="src" path="controllers"/>
+	<buildpathentry kind="src" path="errors"/>
+	<buildpathentry kind="src" path="helpers"/>
+	<buildpathentry kind="src" path="language/arabic/business"/>
+	<buildpathentry kind="src" path="language/arabic/config"/>
+	<buildpathentry kind="src" path="language/arabic/trans"/>
+	<buildpathentry kind="src" path="language/english/business"/>
+	<buildpathentry kind="src" path="language/english/config"/>
+	<buildpathentry kind="src" path="language/english/trans"/>
+	<buildpathentry kind="src" path="libraries"/>
+	<buildpathentry kind="src" path="models/_base"/>
+	<buildpathentry kind="src" path="models/admin"/>
+	<buildpathentry kind="src" path="models/data"/>
+	<buildpathentry kind="src" path="models/front"/>
+	<buildpathentry kind="src" path="models/hr"/>
+	<buildpathentry kind="src" path="models/lookup"/>
+	<buildpathentry kind="src" path="models/reports"/>
+	<buildpathentry kind="src" path="models/trans"/>
+	<buildpathentry kind="src" path="views"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

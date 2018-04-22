@@ -224,6 +224,7 @@ r_theme_row_end();
 
 
 // ---------------------------------------------- TASKS LISTS New SECTION -------------------------------------------------------				  
+echo '<h2>New Tasks</h2>';
 r_theme_row_start();
 
 r_theme_section_start(12, array("id" => "new_task_list_section", "attributes" => array(
@@ -234,6 +235,7 @@ r_theme_section_end();
 r_theme_row_end();
 
 // ---------------------------------------------- TASKS LISTS inprogress SECTION -------------------------------------------------------				  
+echo '<h2>Inprogress Tasks</h2>';
 r_theme_row_start();
 
 r_theme_section_start(12, array("id" => "inprogress_task_list_section", "attributes" => array(
@@ -244,6 +246,7 @@ r_theme_section_end();
 r_theme_row_end();
 
 // ---------------------------------------------- TASKS LISTS done SECTION -------------------------------------------------------				  
+echo '<h2>Done Tasks</h2>';
 r_theme_row_start();
 
 r_theme_section_start(12, array("id" => "done_task_list_section", "attributes" => array(

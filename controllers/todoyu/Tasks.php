@@ -46,10 +46,19 @@ class Tasks extends Base_Controller {
             return;
         }
         $incoming_id = $this->uri->segment(4, 0);
-        $status = $this->uri->segment(5, 0);
+        $status_task = $this->uri->segment(5, 0);
         $this_item = & $this->main_class;
-     
-        $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_project_id'=> $incoming_id,'task_status'=>$status), "");
+        
+        if($status_task == 'mperson')
+        {
+          $task_mperson_status = $this->uri->segment(6, 0);
+            $data["list_table"] = $this_item->list_items_rtable("mperson_tasks", array('task_mperson_id'=> $incoming_id , 'task_status'=>$task_mperson_status), "");
+           
+        }else {
+        $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_project_id'=> $incoming_id,'task_status'=>$status_task), "");
+        }
+        
+        
     
        
 

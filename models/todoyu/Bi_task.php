@@ -105,6 +105,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
         $this->list_edit_Col = 2;
 
        $this->list_items_where["project_tasks"] = array("task_project_id"=>"task_s.task_project_id","task_status"=>"task_s.task_status");
+       $this->list_items_where["mperson_tasks"] = array("task_mperson_id"=>"task_s.task_mperson_id","task_status"=>"task_s.task_status");
      
 	    $this->list_items_where["all"] = array(); 
       

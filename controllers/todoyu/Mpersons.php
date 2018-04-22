@@ -29,6 +29,50 @@ class Mpersons extends Base_Controller {
     }
     
     
+    
+    public function info()
+	{
+		$access_component_name = "security.general" ; 
+		$access_verb="read" ;
+		$this_view_file = "mperson_addedit"	; 
+		
+		
+		if (!$this->_top_function($access_component_name)) return ; 
+		$data = array() ;
+		$data["public_data"] = $this->admin_public->DATA;  			
+		if ($this->admin_public->verify_access("read",0) == false ) 
+		{
+			$data["access_component_name"] = $access_component_name ; 
+			$data["access_verb"] = $access_verb ; 					
+			$this->load->view( '_general/general/invalid_rights_message',$data);		; // takes care of login / header loading 
+		}
+			
+		$this_view = $this->view_folder.'/'.$this_view_file ; 
+		
+		$incoming_id = $this->uri->segment(4, 0);//passenger id in case filters not creat new ticket
+		
+		$this_item = & $this->main_class;
+		$this_item->clear();
+		$this_item->read($incoming_id , "" ,1);
+		
+		
+				
+		$data["public_data"] = $this->admin_public->DATA;
+		
+		$data["mperson_id"] = $incoming_id;
+		
+	
+		$data["this_concept"] = $this->concept ; 
+		$data["this_controller"] = $this->controller ; 
+		
+		$data["this_id_field"] = $this->id_field ; 
+		$data["hscroll"] = true;
+	
+		$this->load->view( $this_view , $data );
+		
+	} 
+    
+    
       public function ajax_table() {
         
         $access_component_name = $this->security_component;
@@ -69,6 +113,9 @@ class Mpersons extends Base_Controller {
         $data["options"]["disable_datatable"] = false;
         $data["options"]["line_verbs_colors"] = true;
         $data["options"]["line_verbs_buttons"] = true;
+        $data["options"]["enable_open_button"] = true ; 
+	$data["options"]["open_url_suffix"] = site_url("todoyu/mpersons/info")   ; 
+	$data["options"]["open_url_field"] = "mperson_id" ; 
 
 
         $this->view_data = $data;

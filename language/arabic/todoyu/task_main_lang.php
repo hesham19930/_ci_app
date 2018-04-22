@@ -87,7 +87,10 @@
 	$lang[$field_name.'_label'] = 	"Delivery Date  :" ;
 	$lang[$field_name.'_is_required'] = 	"" ;
 	
-	
+	$field_name=$section."task_mperson_id" ;
+	$lang[$field_name.'_tip'] = 	"_" ;
+	$lang[$field_name.'_label'] = 	"Assign Task    :" ;
+	$lang[$field_name.'_is_required'] = 	"Required" ;
 	
 	
 	?>

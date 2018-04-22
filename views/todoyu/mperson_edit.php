@@ -1,5 +1,5 @@
 <?php
-$this_concept = "task";
+$this_concept = "mperson";
 $this_controller = "todoyu/" . $this_concept . "s";
 
 // BEGIN PAGE SETTINGS
@@ -21,7 +21,7 @@ if (set_value("is_an_action") == "yes") {
     foreach ($item->business_data as $key => $value) {
         $input_values[$key] = $value;
     }
-   
+
     if ($disable_edit)
         $read_only = 1;
     r_theme_box_start
@@ -38,7 +38,7 @@ $lang_section = $this_concept . ".form_data.";
 
 // ID FIELD  // _____________________________________________________________________________________________________		
 if ($item->ID() != 0) {
-    $field_name = "task_id";
+    $field_name = "mperson_id";
 
     $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
     if (form_error($field_name) != "") {
@@ -49,120 +49,75 @@ if ($item->ID() != 0) {
 }
 
 //  // _____________________________________________________________________________________________________
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
+echo '<div class="controls-row">';
 echo '<div class="span11 m-wrap">';
-$field_name = "task_name";
-
-$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
-if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
-}
-$Label = r_langline($field_name . '_label', $lang_section);
-
-r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
-echo '</div></div>';
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
-echo '<div class="span11 m-wrap">';
-$field_name = "task_description";
-
-$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
-if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
-}
-$Label = r_langline($field_name . '_label', $lang_section);
-
-
-r_theme_InputArea($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
-echo '</div></div>';
-//_____________________________________________________________________________________________
-
-
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
-echo '<div class="span11 m-wrap">';
-$field_name = "task_project_id";
-
-$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
-if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
-}
-$Label = r_langline($field_name . '_label', $lang_section);
-
-r_theme_Inputhidden($field_name, $input_values[$field_name], $Label, "small", $SubTip, 0);
-echo '</div></div>';
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
-echo '<div class="span11 m-wrap">';
-
-$field_name = "task_mperson_id";
+$field_name = "mperson_name";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
 $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
-$lookup_class = "bi_mperson";
-$lookup_filter = "";
-r_theme_InputSelect($field_name, $input_values[$field_name], $Label, r_listbox_items($lookup_class, $lookup_filter), "small", $SubTip, 0, 1);
+
+r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
 echo '</div></div>';
-
-
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
+//_____________________________________________________________________________________________
+echo '<div class="controls-row">';
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_creation_date";
+$field_name = "mperson_email";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
+$SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
-
-
+r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
 echo '</div></div>';
-
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
+//_____________________________________________________________________________________________
+echo '<div class="controls-row">';
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_estimated_day";
+$field_name = "mperson_phone";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
+$SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
 echo '</div></div>';
+//_____________________________________________________________________________________________
 
-
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
+echo '<div class="controls-row">';
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_status";
+$field_name = "mperson_type";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
+$SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
+$data = array('manager'=>'Manager' ,'developer'=>'Developer' , 'designer'=>'Designer','other'=>'Other');
+r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, 0, 1);
+echo '</div></div>';
 
-$data = array('new'=>'New' ,'inprogress'=>'In Progress' , 'done'=>'Done');
+//_____________________________________________________________________________________________
+
+echo '<div class="controls-row">';
+echo '<div class="span11 m-wrap">';
+
+$field_name = "mperson_status";
+
+$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
+if (form_error($field_name) != "") {
+$SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
+}
+$Label = r_langline($field_name . '_label', $lang_section);
+$data = array('active'=>'Active' ,'resign'=>'Resign');
 r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, 0, 1);
 echo '</div></div>';
 
@@ -171,7 +126,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_end_date";
+$field_name = "mperson_creation_date";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -181,7 +136,8 @@ $Label = r_langline($field_name . '_label', $lang_section);
 
 r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
 echo '</div></div>';
-//_____________________________________________________________________________________________
+
+
 // obligatory // _____________________________________________________________________________________________________	
 r_theme_InputHidden("is_an_action", "yes");
 ?> 
@@ -200,11 +156,12 @@ r_theme_InputHidden("is_an_action", "yes");
             form_type="POST"				
             form_name="<?php echo $this_concept; ?>_form" 	
             >			
-<?php echo r_langline("general.button_cancel"); ?>		
+        <?php echo r_langline("general.button_cancel"); ?>		
         </button>	
     </div>
 
     <div class="btn-group">
+
         <button  
             type="submit" 
 
@@ -212,19 +169,23 @@ r_theme_InputHidden("is_an_action", "yes");
 
             caller_verb="post_form"
             caller_id="<?php echo $this_concept; ?>_edit_form"
-            caller_url="<?php echo site_url($this_controller) . "/ajax_edit/" . $item->ID(); ?>"
+            caller_url="<?php echo site_url($this_controller) . "/ajax_edit/" . 0; ?>"
             caller_target="edit_<?php echo $this_concept; ?>_body"
 
             form_type="POST"				
             form_name="<?php echo $this_concept; ?>_form" 	
 
             >
-<?php echo r_langline("general.button_save"); ?>
+        <?php echo r_langline("general.button_save"); ?>
         </button>
 
+    </div>
 
 
-    </div></div>
+
+
+
+</div></div>
 <?php
 r_theme_endform();
 

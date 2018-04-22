@@ -30,6 +30,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_creation_date" => 0,
             "task_estimated_day" => 0,
             "task_end_date" => 0,
+            "task_mperson_id" => 0,
             "project_name" => "",
            
         );
@@ -67,6 +68,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_name" => "Task Name",
             "task_description" => "Description",
             "task_status"=> "Status",
+            "mperson_name" => "Task Assign To",
             "task_creation_date" => 0,
             "task_estimated_day" => 0,
             "task_end_date" => "Task End",
@@ -81,13 +83,17 @@ class Bi_task extends Simple_business implements iSimple_Business {
         //---------------------------------------------------------- ---------------------------
         // to be used in reading simple & exteded Modes 
         $this->read_select = Array("task_s.*");
-    $this->read_select_extended=Array("task_s.*", "project_id", "project_name");
+    $this->read_select_extended=Array("task_s.*", "project_id", "project_name","mperson_name");
     
 
         $this->read_join_extended = Array(
             Array(
                 "1" => "project_s",
                 "2" => "task_s.task_project_id = project_s.project_id",
+                "3" => "inner"
+            ),Array(
+                "1" => "mperson_s",
+                "2" => "task_s.task_mperson_id = mperson_s.mperson_id",
                 "3" => "inner"
             )
            

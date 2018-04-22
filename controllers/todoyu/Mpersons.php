@@ -1,35 +1,36 @@
-<?php
-
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
- * Description of Tasks
+ * Description of Mpersons
  *
  * @author Resala
  */
-class Tasks extends Base_Controller {
-    function __construct() {
+class Mpersons extends Base_Controller {
+   function __construct() {
         parent::__construct();
 
-        $this->concept = "task";
-        $this->controller = "todoyu/tasks";
+        $this->concept = "mperson";
+        $this->controller = "todoyu/mpersons";
 
-        $this->class_name = "bi_task";
-        $this->class_path = "todoyu/bi_task";
+        $this->class_name = "bi_mperson";
+        $this->class_path = "todoyu/bi_mperson";
 
         $this->view_folder = "todoyu";
-        $this->id_field = "task_id";
-
-        $this->use_lang_files = array("todoyu/task_main");
+        $this->id_field = "mperson_id";
+       // $this->report_title  = r_langline('report_title',"client.master.");
+        $this->use_lang_files = array("todoyu/mperson_main");
         $this->security_component = "security.general";
-        $this->use_master = master_type::TableMaster;
+        $this->use_master = master_type::TableMaster ;
     }
     
     
-    public function ajax_table() {
+      public function ajax_table() {
+        
         $access_component_name = $this->security_component;
         if (!$this->_top_function($access_component_name, 'yes'))
             return;
@@ -37,7 +38,7 @@ class Tasks extends Base_Controller {
         $access_verb = "read";
         $data = array();
         $data["public_data"] = $this->admin_public->DATA;
-
+       
 
         if ($this->admin_public->verify_access($access_verb, 0) == false) {
             $data["access_component_name"] = $access_component_name;
@@ -45,41 +46,39 @@ class Tasks extends Base_Controller {
             $this->load->view('_general/general/invalid_rights_message', $data);   // takes care of login / header loading
             return;
         }
-        $incoming_id = $this->uri->segment(4, 0);
-        $status = $this->uri->segment(5, 0);
+
         $this_item = & $this->main_class;
-     
-        $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_project_id'=> $incoming_id,'task_status'=>$status), "");
-    
-       
+
+        $data["list_table"] = $this_item->list_items_rtable("all", array(), "");
 
 
-        $data["this_concept"] = "task";
+
+        $data["this_concept"] = "mperson";
         $data["this_controller"] = $this->controller;
 
-        $data["this_lang_file"] = "todoyu/task_main";
-        $data["this_id_field"] = "task_id";
-        $data["this_name_field"] = "task_name";
-        $data["this_name_field_ar"] = "task_name";
-       
-       //echo $incoming_id , $status;
-        $data["options"]["hide_add_button"] = true;
+        $data["this_lang_file"] = "todoyu/mperson_main";
+        $data["this_id_field"] = "mperson_id";
+        $data["this_name_field"] = "mperson_name";
+        $data["this_name_field_ar"] = "mperson_name";
+        
+        $data["options"]["hide_add_button"] = false;
         $data["options"]["disable_line_add"] = false;
         $data["options"]["disable_line_edit"] = false;
         $data["options"]["disable_line_delete"] = false;
         $data["options"]["hide_line_verbs"] = false;
-        $data["options"]["disable_datatable"] = true;
+        $data["options"]["disable_datatable"] = false;
         $data["options"]["line_verbs_colors"] = true;
         $data["options"]["line_verbs_buttons"] = true;
-        $data["hscroll"] = true ;
-        
+
+
         $this->view_data = $data;
 
         return parent::ajax_table();
     }
+
     
     
-   public function ajax_edit() {
+    public function ajax_edit() {
         $access_component_name = "security.general";
         $access_verb = "read";
 
@@ -95,38 +94,33 @@ class Tasks extends Base_Controller {
         }
 
         $this->load->library("form_validation");
-        $this->load->model("todoyu/bi_project");
-        $this->load->model("todoyu/bi_mperson");
+       
 
         // load & read Existing object  ----------------------------------------------------
         $this_item = & $this->main_class;
         $this_item->clear();
 
         $incoming_id = $this->uri->segment(4, 0);
-		$project_id = $this->uri->segment(5, 0);
-	
+
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
-           
-         
             if (!$this_item->is_published) {
                 //redirect with error not found object  
             }
-        }else {
-            $this_item->business_data['task_project_id'] =  $project_id;
         }
 
-       // $data['project_id'] = $project_id;
+
 
         $data["this_controller"] = $this->controller;
 
         
 
-        $this->form_validation->set_rules("task_name", "Client Name", "required");
-        $this->form_validation->set_rules("task_status", "Client Phone", "required");
-        /*$this->form_validation->set_rules("client_address", "Client Address", "required");
-        $this->form_validation->set_rules("client_email", "Client Email", "required");
-       $this->form_validation->set_rules("client_industry_id","Client Industry Name", "required") ;*/
+        $this->form_validation->set_rules("mperson_name", "Person Name", "required");
+        $this->form_validation->set_rules("mperson_email", "Person Email", "required|valid_email");
+        $this->form_validation->set_rules("mperson_phone", "Person Phone", "required|numeric");
+        $this->form_validation->set_rules("mperson_type", "Person Type ", "required");
+        $this->form_validation->set_rules("mperson_creation_date", "Person Create Date", "required");
+       $this->form_validation->set_rules("mperson_status","Person Status", "required") ;
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -134,7 +128,7 @@ class Tasks extends Base_Controller {
             $data["this_item"] = $this_item;
             $data["public_data"] = $this->admin_public->DATA;
             $data["disable_edit"] = false;
-            $this->load->view('todoyu/task_edit', $data);
+            $this->load->view('todoyu/mperson_edit', $data);
             return;
         } else {
 
@@ -155,7 +149,7 @@ class Tasks extends Base_Controller {
                     $this_item->business_data[$key] = $this->input->post($key);
                 }
             }
-          //  $this_item->business_data['task_project_id'] = $project_id;
+            $this_item->business_data['mperson_created_by'] = $this->admin_public->DATA['user_id'];
 
 
 
@@ -188,5 +182,4 @@ class Tasks extends Base_Controller {
             return;
         }
     }
-   
 }

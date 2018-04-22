@@ -46,11 +46,13 @@ class Logs extends Base_Controller {
             return;
         }
         $incoming_id = $this->uri->segment(4, 0);
-        $task_id = $this->uri->segment(5, 0);
+        //$task_id = $this->uri->segment(5, 0);
         $this_item = & $this->main_class;
        // echo $incoming_id , $status;
-       // $data["list_table"] = $this_item->list_items_rtable("all", array('log_task_id'=> $task_id), "");
-		$data["list_table"] = $this_item->list_items_rtable("all", array(), "");
+        echo $incoming_id;
+       // return;
+        $data["list_table"] = $this_item->list_items_rtable("all", array('log_task_id'=> $incoming_id), "");
+		//$data["list_table"] = $this_item->list_items_rtable("all", array(), "");
       
 
 
@@ -103,8 +105,8 @@ class Logs extends Base_Controller {
         $this_item->clear();
 
         $incoming_id = $this->uri->segment(4, 0);
-	//	$task_id = $this->uri->segment(5, 0);
-	//	$data['task_id'] = $task_id;
+        $task_id = $this->uri->segment(5, 0);
+	echo $task_id;
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
            
@@ -113,7 +115,10 @@ class Logs extends Base_Controller {
                 //redirect with error not found object  
             }
         }else {
-           
+            $this_item->business_data['log_task_id'] = $task_id;
+            /************************************************/
+            // why can't add this line after foreach and why i lose the segment
+            /*************************************************/
         }
 
       
@@ -148,15 +153,18 @@ class Logs extends Base_Controller {
             }
 
          
-           
+          
 
             foreach ($this_item->business_data as $key => $value) {
                 if (key_exists($key, $this->input->post())) {
                     $this_item->business_data[$key] = $this->input->post($key);
                 }
             }
-           // $this_item->business_data['log_task_id'] = $task_id;
-
+            
+           
+          
+           
+         
 
 
             // in this moment , where would be the new value of the field before update ?

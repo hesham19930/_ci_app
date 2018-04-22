@@ -92,8 +92,7 @@ class Bi_log extends Simple_business implements iSimple_Business {
 
         $this->list_edit_Col = 2;
 
-      // $this->list_items_where["all"] = array("task_project_id"=>"task_s.task_project_id","task_status"=>"task_s.task_status");
-	    $this->list_items_where["all"] = array(); 
-      
+       $this->list_items_where["all"] = array("log_task_id"=>"log_s.log_task_id");
+	      
     }
 }

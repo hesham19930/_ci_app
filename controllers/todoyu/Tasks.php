@@ -3,14 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-
-
 /**
  * Description of Tasks
  *
  * @author Resala
  */
 class Tasks extends Base_Controller {
+
     function __construct() {
         parent::__construct();
 
@@ -27,8 +26,48 @@ class Tasks extends Base_Controller {
         $this->security_component = "security.general";
         $this->use_master = master_type::TableMaster;
     }
-    
-    
+
+    public function info() {
+        $access_component_name = "security.general";
+        $access_verb = "read";
+        $this_view_file = "task_addedit";
+
+
+        if (!$this->_top_function($access_component_name))
+            return;
+        $data = array();
+        $data["public_data"] = $this->admin_public->DATA;
+        if ($this->admin_public->verify_access("read", 0) == false) {
+            $data["access_component_name"] = $access_component_name;
+            $data["access_verb"] = $access_verb;
+            $this->load->view('_general/general/invalid_rights_message', $data);
+            ; // takes care of login / header loading 
+        }
+
+        $this_view = $this->view_folder . '/' . $this_view_file;
+
+        $incoming_id = $this->uri->segment(4, 0); //passenger id in case filters not creat new ticket
+
+        $this_item = & $this->main_class;
+        $this_item->clear();
+        $this_item->read($incoming_id, "", 1);
+
+
+
+        $data["public_data"] = $this->admin_public->DATA;
+
+        $data["task_id"] = $incoming_id;
+
+
+        $data["this_concept"] = $this->concept;
+        $data["this_controller"] = $this->controller;
+
+        $data["this_id_field"] = $this->id_field;
+        $data["hscroll"] = true;
+
+        $this->load->view($this_view, $data);
+    }
+
     public function ajax_table() {
         $access_component_name = $this->security_component;
         if (!$this->_top_function($access_component_name, 'yes'))
@@ -48,19 +87,17 @@ class Tasks extends Base_Controller {
         $incoming_id = $this->uri->segment(4, 0);
         $status_task = $this->uri->segment(5, 0);
         $this_item = & $this->main_class;
-        
-        if($status_task == 'mperson')
-        {
-          $task_mperson_status = $this->uri->segment(6, 0);
-            $data["list_table"] = $this_item->list_items_rtable("mperson_tasks", array('task_mperson_id'=> $incoming_id , 'task_status'=>$task_mperson_status), "");
-           
-        }else {
-        $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_project_id'=> $incoming_id,'task_status'=>$status_task), "");
+
+        if ($status_task == 'mperson') {
+            $task_mperson_status = $this->uri->segment(6, 0);
+            $data["list_table"] = $this_item->list_items_rtable("mperson_tasks", array('task_mperson_id' => $incoming_id, 'task_status' => $task_mperson_status), "");
+        } else {
+            $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_project_id' => $incoming_id, 'task_status' => $status_task), "");
         }
-        
-        
-    
-       
+
+
+
+
 
 
         $data["this_concept"] = "task";
@@ -70,8 +107,8 @@ class Tasks extends Base_Controller {
         $data["this_id_field"] = "task_id";
         $data["this_name_field"] = "task_name";
         $data["this_name_field_ar"] = "task_name";
-       
-       //echo $incoming_id , $status;
+
+        //echo $incoming_id , $status;
         $data["options"]["hide_add_button"] = true;
         $data["options"]["disable_line_add"] = false;
         $data["options"]["disable_line_edit"] = false;
@@ -80,15 +117,17 @@ class Tasks extends Base_Controller {
         $data["options"]["disable_datatable"] = true;
         $data["options"]["line_verbs_colors"] = true;
         $data["options"]["line_verbs_buttons"] = true;
-        $data["hscroll"] = true ;
-        
+        $data["options"]["enable_open_button"] = true;
+        $data["options"]["open_url_suffix"] = site_url("todoyu/tasks/info");
+        $data["options"]["open_url_field"] = "task_id";
+        $data["hscroll"] = true;
+
         $this->view_data = $data;
 
         return parent::ajax_table();
     }
-    
-    
-   public function ajax_edit() {
+
+    public function ajax_edit() {
         $access_component_name = "security.general";
         $access_verb = "read";
 
@@ -96,7 +135,7 @@ class Tasks extends Base_Controller {
             return;
         $data = array();
         $data["public_data"] = $this->admin_public->DATA;
-       
+
         if ($this->admin_public->verify_access("read", 0) == false) {
             $data["access_component_name"] = $access_component_name;
             $data["access_verb"] = $access_verb;
@@ -112,30 +151,30 @@ class Tasks extends Base_Controller {
         $this_item->clear();
 
         $incoming_id = $this->uri->segment(4, 0);
-		$project_id = $this->uri->segment(5, 0);
-	
+        $project_id = $this->uri->segment(5, 0);
+
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
-           
-         
+
+
             if (!$this_item->is_published) {
                 //redirect with error not found object  
             }
-        }else {
-            $this_item->business_data['task_project_id'] =  $project_id;
+        } else {
+            $this_item->business_data['task_project_id'] = $project_id;
         }
 
-       // $data['project_id'] = $project_id;
+        // $data['project_id'] = $project_id;
 
         $data["this_controller"] = $this->controller;
 
-        
+
 
         $this->form_validation->set_rules("task_name", "Client Name", "required");
         $this->form_validation->set_rules("task_status", "Client Phone", "required");
-        /*$this->form_validation->set_rules("client_address", "Client Address", "required");
-        $this->form_validation->set_rules("client_email", "Client Email", "required");
-       $this->form_validation->set_rules("client_industry_id","Client Industry Name", "required") ;*/
+        /* $this->form_validation->set_rules("client_address", "Client Address", "required");
+          $this->form_validation->set_rules("client_email", "Client Email", "required");
+          $this->form_validation->set_rules("client_industry_id","Client Industry Name", "required") ; */
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -156,18 +195,15 @@ class Tasks extends Base_Controller {
                     return;
             }
 
-         
-           
+
+
 
             foreach ($this_item->business_data as $key => $value) {
                 if (key_exists($key, $this->input->post())) {
                     $this_item->business_data[$key] = $this->input->post($key);
                 }
             }
-          //  $this_item->business_data['task_project_id'] = $project_id;
-
-
-
+            //  $this_item->business_data['task_project_id'] = $project_id;
             // in this moment , where would be the new value of the field before update ?
             $this_item->validate();
 
@@ -197,5 +233,5 @@ class Tasks extends Base_Controller {
             return;
         }
     }
-   
+
 }

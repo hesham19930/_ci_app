@@ -149,7 +149,7 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-$data = array('new'=>'New' ,'in progress'=>'In Progress' , 'done'=>'Done');
+$data = array('new'=>'New' ,'inprogress'=>'In Progress' , 'done'=>'Done');
 r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, 0, 1);
 echo '</div></div>';
 

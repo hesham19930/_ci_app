@@ -58,7 +58,7 @@ automation_url = "[get_from_caller]"
 ></a>
 
 <!--   Refresh List After save HANDLER   -->
-
+<!--   Refresh NEW HANDLER   -->
 <a class="r_automation"
 caller_key = "task_edit_form"
 automation_verb = "form_post_success"
@@ -66,6 +66,25 @@ automation_target= "new_task_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
+
+<!--   Refresh INPROGRESS HANDLER   -->
+<a class="r_automation"
+caller_key = "task_edit_form"
+automation_verb = "form_post_success"
+automation_target= "inprogress_task_list_section"
+automation_action = "reload"
+automation_url = ""
+></a>
+
+<!--   Refresh DONE HANDLER   -->
+<a class="r_automation"
+caller_key = "task_edit_form"
+automation_verb = "form_post_success"
+automation_target= "done_task_list_section"
+automation_action = "reload"
+automation_url = ""
+></a>
+
 
 <!--   Cancel add new Button HANDLER   -->
 
@@ -118,8 +137,8 @@ automation_action = "clear_modal"
 automation_url = ""
 ></a>
 
-<!--   Refresh List After save HANDLER   -->
-
+<!--   Refresh List After Delete HANDLER   -->
+<!--   Refresh Delete NEW HANDLER   -->
 <a class="r_automation"
 caller_key = "task_delete_form"
 automation_verb = "form_post_success"
@@ -128,6 +147,24 @@ automation_action = "reload"
 automation_url = ""
 ></a>
 
+<!--   Refresh Delete INPROGRESS HANDLER   -->
+<a class="r_automation"
+caller_key = "task_delete_form"
+automation_verb = "form_post_success"
+automation_target= "inprogress_task_list_section"
+automation_action = "reload"
+automation_url = ""
+></a>
+
+
+<!--   Refresh Delete DONE HANDLER   -->
+<a class="r_automation"
+caller_key = "task_delete_form"
+automation_verb = "form_post_success"
+automation_target= "done_task_list_section"
+automation_action = "reload"
+automation_url = ""
+></a>
 <!--   Cancel delete Button HANDLER   -->
 
 <a class="r_automation"
@@ -184,15 +221,37 @@ r_theme_row_start();
 
 <?php 
 r_theme_row_end();
+
+
 // ---------------------------------------------- TASKS LISTS New SECTION -------------------------------------------------------				  
 r_theme_row_start();
 
-r_theme_section_start(4, array("id" => "new_task_list_section", "attributes" => array(
+r_theme_section_start(12, array("id" => "new_task_list_section", "attributes" => array(
         'class' => 'autoload ',
         'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'new')));
 echo '<div align="center">123</div>';
 r_theme_section_end();
+r_theme_row_end();
 
+// ---------------------------------------------- TASKS LISTS inprogress SECTION -------------------------------------------------------				  
+r_theme_row_start();
+
+r_theme_section_start(12, array("id" => "inprogress_task_list_section", "attributes" => array(
+        'class' => 'autoload ',
+        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'inprogress')));
+echo '<div align="center">123</div>';
+r_theme_section_end();
+r_theme_row_end();
+
+// ---------------------------------------------- TASKS LISTS done SECTION -------------------------------------------------------				  
+r_theme_row_start();
+
+r_theme_section_start(12, array("id" => "done_task_list_section", "attributes" => array(
+        'class' => 'autoload ',
+        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'done')));
+echo '<div align="center">123</div>';
+r_theme_section_end();
+r_theme_row_end();
 // ---------------------------------------------- TASKS EDIT SECTION -------------------------------------------------------				  
 r_theme_section_start(4, array("id" => "task_edit_section", "attributes" => array(
         'class' => 'modal trasparent container hide',
@@ -236,11 +295,7 @@ echo '<div align="center">123</div>';
 r_theme_section_end();
 
 // ---------------------------------------------- TASKS LIST Done SECTION -------------------------------------------------------				  
-r_theme_section_start(4, array("id" => "hesham4", "attributes" => array(
-        'class' => 'autoload ',
-        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'done')));
-echo '<div align="center">123</div>';
-r_theme_section_end();
+
 
 r_theme_row_end();
 

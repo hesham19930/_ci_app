@@ -68,15 +68,23 @@ class Bi_mperson extends Simple_business implements iSimple_Business {
             "mperson_email" => "Email",
             "mperson_status" => "Status",
             "mperson_creation_date" => "Join Date ",
-            "mperson_created_by" => "Added By",
+            "user_login" => "Added By",
         );
 
 
         //---------------------------------------------------------- ---------------------------
         // to be used in reading simple & exteded Modes 
       $this->read_select = Array("mperson_s.*");
-
-
+       $this->read_select_extended=Array("mperson_s.*", "user_login");
+       $this->read_join_extended = Array(
+            Array(
+                "1" => "a_users",
+                "2" => "mperson_s.mperson_created_by = a_users.user_id",
+                "3" => "left"
+            )
+        );
+       
+       $this->list_join = $this->read_join_extended;
 
 
         $this->list_edit_Col = 2;
@@ -84,31 +92,6 @@ class Bi_mperson extends Simple_business implements iSimple_Business {
         $this->list_items_where["all"] = array();
     }
 
-   /* public function list_items_extension($db, $use_list, $filter_data) {
-
-        if ($use_list == "filter_client") {
-
-
-
-            if ($filter_data["client_industry_id"] != "") {
-                $where = "1 = 1 " . "AND industry_s.industry_id =" . $filter_data["client_industry_id"] . "";
-                $this->db->where($where, NULL, FALSE);
-            }if ($filter_data["client_name"] != "") {
-
-                $where = "1 = 1 " . "AND client_name LIKE '%" . $filter_data["client_name"] . "%'";
-                $this->db->where($where, NULL, FALSE);
-            }
-
-
-
-            $this->db->where($where, NULL, FALSE);
-            return true;
-        }
-
-
-
-
-        return false;
-    }*/
+   
 
 }

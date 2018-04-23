@@ -67,7 +67,7 @@ class Bi_client extends Simple_business implements iSimple_Business {
         // to be used in reading simple & exteded Modes 
         $this->read_select = Array("client_s.*");
 
-        $this->read_select = Array("client_s.*");
+      //  $this->read_select = Array("client_s.*");
 
         $this->read_join_extended = Array(
             Array(

@@ -22,7 +22,6 @@ class Mpersons extends Base_Controller {
 
         $this->view_folder = "todoyu";
         $this->id_field = "mperson_id";
-       // $this->report_title  = r_langline('report_title',"client.master.");
         $this->use_lang_files = array("todoyu/mperson_main");
         $this->security_component = "security.general";
         $this->use_master = master_type::TableMaster ;
@@ -95,7 +94,7 @@ class Mpersons extends Base_Controller {
 
         $data["list_table"] = $this_item->list_items_rtable("all", array(), "");
 
-
+        
 
         $data["this_concept"] = "mperson";
         $data["this_controller"] = $this->controller;

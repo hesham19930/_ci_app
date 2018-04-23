@@ -130,8 +130,15 @@ if (form_error($field_name) != "") {
 $Label = r_langline($field_name . '_label', $lang_section);
 
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
+if($mode === 'readonly'){
+  r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
+}else {
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+}
 
+//r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
+//
+//r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
 
 echo '</div></div>';
 
@@ -148,7 +155,11 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
+if($mode === 'readonly'){
+  r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
+}else {
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+}
 echo '</div></div>';
 
 
@@ -182,7 +193,11 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
+if($mode === 'readonly'){
+  r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
+}else {
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+}
 echo '</div></div>';
 //_____________________________________________________________________________________________
 // obligatory // _____________________________________________________________________________________________________	

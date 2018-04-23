@@ -88,6 +88,7 @@ class Tasks extends Base_Controller {
         $status_task = $this->uri->segment(5, 0);
         $this_item = & $this->main_class;
 
+        // $data["list_table"] = $this_item->list_items_rtable("all", array(), "");
         if ($status_task == 'mperson') {
             $task_mperson_status = $this->uri->segment(6, 0);
             $data["list_table"] = $this_item->list_items_rtable("mperson_tasks", array('task_mperson_id' => $incoming_id, 'task_status' => $task_mperson_status), "");
@@ -109,7 +110,7 @@ class Tasks extends Base_Controller {
         $data["this_name_field_ar"] = "task_name";
 
         //echo $incoming_id , $status;
-        $data["options"]["hide_add_button"] = true;
+        $data["options"]["hide_add_button"] = FALSE;
         $data["options"]["disable_line_add"] = false;
         $data["options"]["disable_line_edit"] = false;
         $data["options"]["disable_line_delete"] = false;
@@ -176,11 +177,13 @@ class Tasks extends Base_Controller {
 
 
 
-        $this->form_validation->set_rules("task_name", "Client Name", "required");
-        $this->form_validation->set_rules("task_status", "Client Phone", "required");
-        /* $this->form_validation->set_rules("client_address", "Client Address", "required");
-          $this->form_validation->set_rules("client_email", "Client Email", "required");
-          $this->form_validation->set_rules("client_industry_id","Client Industry Name", "required") ; */
+        $this->form_validation->set_rules("task_name", "Task Name", "required");
+        $this->form_validation->set_rules("task_status", "Task Status", "required");
+        $this->form_validation->set_rules("task_mperson_id", "Task To", "required");
+        $this->form_validation->set_rules("task_creation_date", "Task Create Date", "required");
+        $this->form_validation->set_rules("task_estimated_day", "Estimated Date", "required");
+         
+        
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -209,12 +212,25 @@ class Tasks extends Base_Controller {
                     $this_item->business_data[$key] = $this->input->post($key);
                 }
             }
-            //  $this_item->business_data['task_project_id'] = $project_id;
-            // in this moment , where would be the new value of the field before update ?
+          /*  $create = new DateTime($this_item->business_data['task_creation_date']);
+            $expect = new DateTime($this_item->business_data['task_estimated_day']);
+            $deliver = new DateTime($this_item->business_data['task_end_date']);
+          
+         
+            
+            if($create > $expect || $create > $deliver)
+            {
+                echo 'You can\'t deliver task before creation date';
+                return;
+            }
+            
+           $difference =  date_diff($create , $expect);
+   
+       $this_item->business_data['task_estimated_day'] = $difference->format("%d days");*/
             $this_item->validate();
 
             if ($this_item->success == FALSE) {
-                //goto redo; 
+               
 
                 $data["this_item"] = $this_item;
                 $data["public_data"] = $this->admin_public->DATA;
@@ -225,12 +241,12 @@ class Tasks extends Base_Controller {
                 $this->load->view($this->view_folder . '/' . $this->concept . '_edit', $data);
 
 
-                echo "<b><center>عفوا هذا العميل مسجل من قبل</center></b>";
+                echo "<b><center>".$this_item->error_message."</center></b>";
 
                 return;
             } else {
 
-                //$this_item->business_data["sys_account_id"] = $this->admin_public->DATA["sys_account_id"];
+               
 
                 $this_item->update();
                 echo "FINE: OK :" . "<a msg=record_update_success /><ID>" . $this_item->ID() . "</ID>";

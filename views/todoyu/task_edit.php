@@ -6,8 +6,11 @@ $this_controller = "todoyu/" . $this_concept . "s";
 $this->lang->load('business/general', $this->admin_public->DATA["system_lang"]);
 
 $this->lang->load('todoyu/' . $this_concept . '_main', $this->admin_public->DATA["system_lang"]);
-
+if($mode === 'readonly'){
+   $read_only = 1; 
+}else {
 $read_only = 0;
+}
 // take the value from the previous form submit
 $item = $this_item;
 $input_values = array(); // this is our array 
@@ -93,7 +96,7 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_Inputhidden($field_name, $input_values[$field_name], $Label, "small", $SubTip, 0);
+r_theme_Inputhidden($field_name, $input_values[$field_name], $Label, "small", $SubTip, $read_only);
 echo '</div></div>';
 
 
@@ -109,7 +112,7 @@ $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_sec
 $Label = r_langline($field_name . '_label', $lang_section);
 $lookup_class = "bi_mperson";
 $lookup_filter = "";
-r_theme_InputSelect($field_name, $input_values[$field_name], $Label, r_listbox_items($lookup_class, $lookup_filter), "small", $SubTip, 0, 1);
+r_theme_InputSelect($field_name, $input_values[$field_name], $Label, r_listbox_items($lookup_class, $lookup_filter), "small", $SubTip, $read_only, 1);
 echo '</div></div>';
 
 
@@ -127,7 +130,7 @@ if (form_error($field_name) != "") {
 $Label = r_langline($field_name . '_label', $lang_section);
 
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
 
 
 echo '</div></div>';
@@ -145,7 +148,7 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
 echo '</div></div>';
 
 
@@ -163,7 +166,7 @@ if (form_error($field_name) != "") {
 $Label = r_langline($field_name . '_label', $lang_section);
 
 $data = array('new'=>'New' ,'inprogress'=>'In Progress' , 'done'=>'Done');
-r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, 0, 1);
+r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, $read_only, 1);
 echo '</div></div>';
 
 
@@ -179,12 +182,13 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
 echo '</div></div>';
 //_____________________________________________________________________________________________
 // obligatory // _____________________________________________________________________________________________________	
 r_theme_InputHidden("is_an_action", "yes");
 ?> 
+<?php   if($mode !== 'readonly'):    ?>
 <div class="table-toolbar pull-right">
     <div class="btn-group">
         <button  
@@ -225,6 +229,7 @@ r_theme_InputHidden("is_an_action", "yes");
 
 
     </div></div>
+<?php endif;  ?>
 <?php
 r_theme_endform();
 

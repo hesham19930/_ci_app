@@ -46,11 +46,9 @@ class Logs extends Base_Controller {
             return;
         }
         $incoming_id = $this->uri->segment(4, 0);
-        //$task_id = $this->uri->segment(5, 0);
+       
         $this_item = & $this->main_class;
-       // echo $incoming_id , $status;
-        echo $incoming_id;
-       // return;
+      
         $data["list_table"] = $this_item->list_items_rtable("all", array('log_task_id'=> $incoming_id), "");
 		//$data["list_table"] = $this_item->list_items_rtable("all", array(), "");
       

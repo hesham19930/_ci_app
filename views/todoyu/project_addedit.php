@@ -263,24 +263,7 @@ r_theme_section_start(4, array("id" => "task_edit_section", "attributes" => arra
 echo '<div align="center">123</div>';
 r_theme_section_end();
 // ---------------------------------------------- ADD LOG SECTION -------------------------------------------------------				  
-r_theme_row_start();
-?>
-<div class="table-toolbar pull-left">
-    <div class="btn-group">
-        <button  
-            class="btn blue ajax_action pull-right master_font"
 
-            caller_verb="add_new_log"
-            caller_id="add_new_log_button"
-            caller_url="<?php   echo site_url("todoyu/logs/ajax_edit/0/".'13');?>"
-            >			
-            Add New Log		
-        </button>	
-    </div>
-</div>
-
-<?php 
-r_theme_row_end();
 // ---------------------------------------------- TASKS Delete SECTION -------------------------------------------------------				  
 r_theme_section_start(4, array("id" => "task_delete_section", "attributes" => array(
         'class' => 'modal trasparent container hide'

@@ -152,7 +152,13 @@ class Tasks extends Base_Controller {
 
         $incoming_id = $this->uri->segment(4, 0);
         $project_id = $this->uri->segment(5, 0);
-
+        $mode = $this->uri->segment(6, 0);
+       if($mode === 'readonly')
+       {
+           $data['mode'] = $mode;
+       }else {
+           $data['mode'] = 'nothing';
+       }
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
 

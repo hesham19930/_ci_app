@@ -139,6 +139,21 @@ echo '</div></div>';
 
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
+$field_name = "log_person_id";
+
+$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
+if (form_error($field_name) != "") {
+    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
+}
+$Label = r_langline($field_name . '_label', $lang_section);
+
+r_theme_Inputhidden($field_name, $input_values[$field_name], $Label, "small", $SubTip, 0);
+echo '</div></div>';
+
+
+
+echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
+echo '<div class="span11 m-wrap">';
 
 $field_name = "log_create_date";
 

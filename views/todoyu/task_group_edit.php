@@ -1,5 +1,5 @@
 <?php
-$this_concept = "task";
+$this_concept = "task_group";
 $this_controller = "todoyu/" . $this_concept . "s";
 
 // BEGIN PAGE SETTINGS
@@ -42,7 +42,7 @@ $lang_section = $this_concept . ".form_data.";
 
 // ID FIELD  // _____________________________________________________________________________________________________		
 if ($item->ID() != 0) {
-    $field_name = "task_id";
+    $field_name = "task_group_id";
 
     $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
     if (form_error($field_name) != "") {
@@ -57,7 +57,7 @@ if ($item->ID() != 0) {
 
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
-$field_name = "task_name";
+$field_name = "task_group_name";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -71,7 +71,7 @@ echo '</div></div>';
 
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
-$field_name = "task_description";
+$field_name = "task_group_description";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -89,21 +89,7 @@ echo '</div></div>';
 
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
-$field_name = "task_project_id";
-
-$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
-if (form_error($field_name) != "") {
-    $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
-}
-$Label = r_langline($field_name . '_label', $lang_section);
-
-r_theme_Inputhidden($field_name, $input_values[$field_name], $Label, "small", $SubTip, $read_only);
-echo '</div></div>';
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
-echo '<div class="span11 m-wrap">';
-$field_name = "task_group_id";
+$field_name = "task_group_project_id";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -119,25 +105,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_mperson_id";
-
-$SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
-if (form_error($field_name) != "") {
-$SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
-}
-$Label = r_langline($field_name . '_label', $lang_section);
-$lookup_class = "bi_mperson";
-$lookup_filter = "";
-r_theme_InputSelect($field_name, $input_values[$field_name], $Label, r_listbox_items($lookup_class, $lookup_filter), "small", $SubTip, $read_only, 1);
-echo '</div></div>';
-
-
-
-
-echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
-echo '<div class="span11 m-wrap">';
-
-$field_name = "task_creation_date";
+$field_name = "task_group_creation_date";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -152,9 +120,7 @@ if($mode === 'readonly'){
 r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
 }
 
-//r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,$read_only,"date-picker");
-//
-//r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
+
 
 echo '</div></div>';
 
@@ -163,7 +129,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_estimated_day";
+$field_name = "task_group_estimated_time";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -184,7 +150,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_status";
+$field_name = "task_group_status";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -201,7 +167,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_end_date";
+$field_name = "task_group_end_date";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {

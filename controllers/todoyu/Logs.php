@@ -104,7 +104,7 @@ class Logs extends Base_Controller {
 
         $incoming_id = $this->uri->segment(4, 0);
         $task_id = $this->uri->segment(5, 0);
-	echo $task_id;
+	$person_id = $this->uri->segment(6, 0);
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
            
@@ -114,6 +114,7 @@ class Logs extends Base_Controller {
             }
         }else {
             $this_item->business_data['log_task_id'] = $task_id;
+            $this_item->business_data['log_person_id'] = $person_id;
             /************************************************/
             // why can't add this line after foreach and why i lose the segment
             /*************************************************/
@@ -127,9 +128,7 @@ class Logs extends Base_Controller {
 
         $this->form_validation->set_rules("log_name", "Log Name", "required");
         $this->form_validation->set_rules("log_description", "Log Description", "required");
-        /*$this->form_validation->set_rules("client_address", "Client Address", "required");
-        $this->form_validation->set_rules("client_email", "Client Email", "required");
-       $this->form_validation->set_rules("client_industry_id","Client Industry Name", "required") ;*/
+        
 
 
         if ($this->form_validation->run() == FALSE) {

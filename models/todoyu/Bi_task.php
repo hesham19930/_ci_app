@@ -27,6 +27,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_name" => "",
             "task_description" => "",
             "task_project_id" => 0,
+            "task_group_id" => 0,
             "task_status" => "",
             "task_creation_date" => 0,
             "task_estimated_day" => 0,
@@ -73,6 +74,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_estimated_day" => "Estimated Days",
             "task_end_date" => "Task End",
             "project_name" => "Project Name",
+            "task_group_name" => "Group Name",
             
         );
 
@@ -80,7 +82,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
         //---------------------------------------------------------- ---------------------------
         // to be used in reading simple & exteded Modes 
         $this->read_select = Array("task_s.*");
-        $this->read_select_extended = Array("task_s.*", "project_id", "project_name", "mperson_name");
+        $this->read_select_extended = Array("task_s.*", "project_id", "project_name", "mperson_name", "task_group_name");
 
 
         $this->read_join_extended = Array(
@@ -92,6 +94,10 @@ class Bi_task extends Simple_business implements iSimple_Business {
                 "1" => "mperson_s",
                 "2" => "task_s.task_mperson_id = mperson_s.mperson_id",
                 "3" => "inner"
+            ),Array(
+                "1" => "task_group_s",
+                "2" => "task_s.task_group_id = task_group_s.task_group_id",
+                "3" => "inner"
             )
         );
 
@@ -100,7 +106,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
 
         $this->list_edit_Col = 2;
 
-        $this->list_items_where["project_tasks"] = array("task_project_id" => "task_s.task_project_id", "task_status" => "task_s.task_status");
+        $this->list_items_where["project_tasks"] = array("task_group_id" => "task_s.task_group_id", "task_status" => "task_s.task_status");
         $this->list_items_where["mperson_tasks"] = array("task_mperson_id" => "task_s.task_mperson_id", "task_status" => "task_s.task_status");
 
         $this->list_items_where["all"] = array();

@@ -24,22 +24,22 @@ echo loadView("page_title_view", $public_data);
 /***********************************************************************************/
 ?>
 
-<!--  LOAD ADD FORM FOR NEW TASK BUTTON   -->
+<!--  LOAD ADD FORM FOR NEW TASK Group BUTTON   -->
 
 <a class="r_automation"
-caller_key = "add_new_task_button"
-automation_verb = "add_new_task"
-automation_target= "task_edit_section"
+caller_key = "add_new_task_group_button"
+automation_verb = "add_new_task_group"
+automation_target= "task_group_edit_section"
 automation_action = "load_form_modal"
 automation_url = "[get_from_caller]">
 </a>
 
 
 
-<!--   SAVE NEW TASK HANDLER   -->
+<!--   SAVE NEW TASK Group HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "post_form"
 automation_target= "[get_from_caller]"
 automation_action = "post_form"
@@ -50,9 +50,9 @@ automation_url = "[get_from_caller]"
 <!--   Clear After save HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "post_form"
-automation_target= "task_edit_section"
+automation_target= "task_group_edit_section"
 automation_action = "clear_modal"
 automation_url = "[get_from_caller]"
 ></a>
@@ -60,27 +60,27 @@ automation_url = "[get_from_caller]"
 <!--   Refresh List After save HANDLER   -->
 <!--   Refresh NEW HANDLER   -->
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "form_post_success"
-automation_target= "new_task_list_section"
+automation_target= "new_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
 
 <!--   Refresh INPROGRESS HANDLER   -->
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "form_post_success"
-automation_target= "inprogress_task_list_section"
+automation_target= "inprogress_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
 
 <!--   Refresh DONE HANDLER   -->
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "form_post_success"
-automation_target= "done_task_list_section"
+automation_target= "done_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
@@ -89,18 +89,18 @@ automation_url = ""
 <!--   Cancel add new Button HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "form_cancel"
-automation_target= "task_edit_section"
+automation_target= "task_group_edit_section"
 automation_action = "clear_modal"
 automation_url = "[get_from_caller]"
 ></a>
 <!--   Edit Icon HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_table"
+caller_key = "task_group_table"
 automation_verb = "edit"
-automation_target= "task_edit_section"
+automation_target= "task_group_edit_section"
 automation_action = "load_form_modal"
 automation_url = "[get_from_caller]"
 ></a>
@@ -109,9 +109,9 @@ automation_url = "[get_from_caller]"
 <!--   Delete Icon HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_table"
+caller_key = "task_group_table"
 automation_verb = "delete"
-automation_target= "task_delete_section"
+automation_target= "task_group_delete_section"
 automation_action = "load_form_modal"
 automation_url = "[get_from_caller]"
 ></a>
@@ -119,7 +119,7 @@ automation_url = "[get_from_caller]"
 <!--   Confirm Delete HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_delete_form"
+caller_key = "task_group_delete_form"
 automation_verb = "post_form"
 automation_target= "[get_from_caller]"
 automation_action = "post_form"
@@ -130,9 +130,9 @@ automation_url = "[get_from_caller]"
 <!--   Clear After Delete HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_delete_form"
+caller_key = "task_group_delete_form"
 automation_verb = "form_post_success"
-automation_target= "task_delete_section"
+automation_target= "task_group_delete_section"
 automation_action = "clear_modal"
 automation_url = ""
 ></a>
@@ -140,18 +140,18 @@ automation_url = ""
 <!--   Refresh List After Delete HANDLER   -->
 <!--   Refresh Delete NEW HANDLER   -->
 <a class="r_automation"
-caller_key = "task_delete_form"
+caller_key = "task_group_delete_form"
 automation_verb = "form_post_success"
-automation_target= "new_task_list_section"
+automation_target= "new_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
 
 <!--   Refresh Delete INPROGRESS HANDLER   -->
 <a class="r_automation"
-caller_key = "task_delete_form"
+caller_key = "task_group_delete_form"
 automation_verb = "form_post_success"
-automation_target= "inprogress_task_list_section"
+automation_target= "inprogress_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
@@ -159,16 +159,16 @@ automation_url = ""
 
 <!--   Refresh Delete DONE HANDLER   -->
 <a class="r_automation"
-caller_key = "task_delete_form"
+caller_key = "task_group_delete_form"
 automation_verb = "form_post_success"
-automation_target= "done_task_list_section"
+automation_target= "done_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
 <!--   Cancel delete Button HANDLER   -->
 
 <a class="r_automation"
-caller_key = "task_edit_form"
+caller_key = "task_group_edit_form"
 automation_verb = "form_cancel"
 automation_target= "task_delete_section"
 automation_action = "clear_modal"
@@ -202,7 +202,7 @@ r_theme_row_end();
 
 
 // ---------------------------------------------- Details SECTION -------------------------------------------------------
-// // ---------------------------------------------- ADD NEW TASK BUTTON -------------------------------------------------------	//
+// // ---------------------------------------------- ADD NEW TASK Group BUTTON -------------------------------------------------------	//
 r_theme_row_start();
 ?>
 <div class="table-toolbar pull-left">
@@ -210,11 +210,11 @@ r_theme_row_start();
         <button  
             class="btn blue ajax_action pull-right master_font"
 
-            caller_verb="add_new_task"
-            caller_id="add_new_task_button"
-            caller_url="<?php   echo site_url("todoyu/tasks/ajax_edit/0/".$project_id);?>"
+            caller_verb="add_new_task_group"
+            caller_id="add_new_task_group_button"
+            caller_url="<?php   echo site_url("todoyu/task_groups/ajax_edit/0/".$project_id);?>"
             >			
-            Add New Task		
+            Add New Group		
         </button>	
     </div>
 </div>
@@ -223,13 +223,13 @@ r_theme_row_start();
 r_theme_row_end();
 
 
-// ---------------------------------------------- TASKS LISTS New SECTION -------------------------------------------------------				  
-echo '<h2>New Tasks</h2>';
+// ---------------------------------------------- TASKS Group LISTS New SECTION -------------------------------------------------------				  
+echo '<h2>New Task Groups</h2>';
 r_theme_row_start();
 
-r_theme_section_start(12, array("id" => "new_task_list_section", "attributes" => array(
+r_theme_section_start(12, array("id" => "new_task_group_list_section", "attributes" => array(
         'class' => 'autoload ',
-        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'new')));
+        'url' => site_url('todoyu/task_groups/ajax_table/').'/'.$project_id.'/'.'new')));
 echo '<div align="center">123</div>';
 r_theme_section_end();
 r_theme_row_end();
@@ -238,9 +238,9 @@ r_theme_row_end();
 echo '<h2>Inprogress Tasks</h2>';
 r_theme_row_start();
 
-r_theme_section_start(12, array("id" => "inprogress_task_list_section", "attributes" => array(
+r_theme_section_start(12, array("id" => "inprogress_task_group_list_section", "attributes" => array(
         'class' => 'autoload ',
-        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'inprogress')));
+        'url' => site_url('todoyu/task_groups/ajax_table/').'/'.$project_id.'/'.'inprogress')));
 echo '<div align="center">123</div>';
 r_theme_section_end();
 r_theme_row_end();
@@ -249,14 +249,14 @@ r_theme_row_end();
 echo '<h2>Done Tasks</h2>';
 r_theme_row_start();
 
-r_theme_section_start(12, array("id" => "done_task_list_section", "attributes" => array(
+r_theme_section_start(12, array("id" => "done_task_group_list_section", "attributes" => array(
         'class' => 'autoload ',
-        'url' => site_url('todoyu/tasks/ajax_table/').'/'.$project_id.'/'.'done')));
+        'url' => site_url('todoyu/task_groups/ajax_table/').'/'.$project_id.'/'.'done')));
 echo '<div align="center">123</div>';
 r_theme_section_end();
 r_theme_row_end();
 // ---------------------------------------------- TASKS EDIT SECTION -------------------------------------------------------				  
-r_theme_section_start(4, array("id" => "task_edit_section", "attributes" => array(
+r_theme_section_start(4, array("id" => "task_group_edit_section", "attributes" => array(
         'class' => 'modal trasparent container hide',
         
         )));
@@ -265,20 +265,14 @@ r_theme_section_end();
 // ---------------------------------------------- ADD LOG SECTION -------------------------------------------------------				  
 
 // ---------------------------------------------- TASKS Delete SECTION -------------------------------------------------------				  
-r_theme_section_start(4, array("id" => "task_delete_section", "attributes" => array(
+r_theme_section_start(4, array("id" => "task_group_delete_section", "attributes" => array(
         'class' => 'modal trasparent container hide'
         )));
 echo '<div align="center">123</div>';
 r_theme_section_end();
 
 
-// ---------------------------------------------- Log edit SECTION -------------------------------------------------------				  
-r_theme_section_start(4, array("id" => "log_edit_section", "attributes" => array(
-        'class' => 'modal trasparent container hide',
-        
-        )));
-echo '<div align="center">123</div>';
-r_theme_section_end();
+
 
 // ---------------------------------------------- TASKS LIST Done SECTION -------------------------------------------------------				  
 

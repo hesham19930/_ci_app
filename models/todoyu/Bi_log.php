@@ -28,7 +28,7 @@ class Bi_log extends Simple_business implements iSimple_Business {
             "log_task_id"=>0,
             "log_create_date" => 0,
             "log_person_id" => 0,
-            "log_complete_date" => 0
+            
            
         );
     }
@@ -64,10 +64,10 @@ class Bi_log extends Simple_business implements iSimple_Business {
             "log_id" => "|hide|",
             "log_name" => "Log Name",
             "log_description" => "Log Description",
-            "log_task_id"=> "Task Name",
-            "log_creation_date" => "Creation Date",
-            "log_person_id" => "User Name",
-            "log_complete_date" => "Complete Date"
+            "task_name"=> "Task Name",
+            "log_create_date" => "Creation Date",
+            "mperson_name" => "Person Name",
+          
           
         );
 
@@ -75,7 +75,7 @@ class Bi_log extends Simple_business implements iSimple_Business {
         //---------------------------------------------------------- ---------------------------
         // to be used in reading simple & exteded Modes 
         $this->read_select = Array("log_s.*");
-    /*    $this->read_select_extended=Array("log_s.*","task_id","task_name","task_description");
+        $this->read_select_extended=Array("log_s.*","task_id","task_name" , "mperson_name");
     
 
         $this->read_join_extended = Array(
@@ -83,11 +83,14 @@ class Bi_log extends Simple_business implements iSimple_Business {
                 "1" => "task_s",
                 "2" => "task_s.task_id = log_s.log_task_id",
                 "3" => "inner"
-            )
+            ),Array(
+                "1" => "mperson_s",
+                "2" => "mperson_s.mperson_id = log_s.log_person_id",
+                "3" => "inner" )
            
         );
        
-        $this->list_join = $this->read_join_extended;*/
+        $this->list_join = $this->read_join_extended;
 
 
         $this->list_edit_Col = 2;

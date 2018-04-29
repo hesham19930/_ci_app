@@ -160,7 +160,7 @@ $Label = r_langline($field_name . '_label', $lang_section);
 
 if($status === 'all')
 {
-    $data = array('inprogress'=>'In Progress' , 'done'=>'Done');
+    $data = array('new'=>'New','inprogress'=>'In Progress' , 'done'=>'Done');
 }else {
     $data = array('new'=>'New' );
 }

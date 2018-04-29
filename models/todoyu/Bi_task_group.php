@@ -160,7 +160,7 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
      
         $difference =  date_diff(new DateTime() , $expect);
          
-      $itable_row->Cells["task_group_estimated_days"]->Value = $difference->format("%d Days %h Hours and %i Minuts");
+      $itable_row->Cells["task_group_estimated_days"]->Value = $difference->format("%d Days %h Hours");
        
     }
     

@@ -96,7 +96,7 @@ class Task_groups extends Base_Controller {
         $this_item = & $this->main_class;
 
         $data["list_table"] = $this_item->list_items_rtable("project_tasks", array('task_group_project_id' => $incoming_id, 'task_group_status' => $task_group_status), "");
-        // $data["list_table"] = $this_item->list_items_rtable("all", array(), "");
+         //$data["list_table"] = $this_item->list_items_rtable("all", array(), "");
         /*  if ($status_task == 'mperson') {
           $task_mperson_status = $this->uri->segment(6, 0);
           $data["list_table"] = $this_item->list_items_rtable("mperson_tasks", array('task_mperson_id' => $incoming_id, 'task_status' => $task_mperson_status), "");
@@ -221,39 +221,22 @@ class Task_groups extends Base_Controller {
                 }
             }
             $task_group_id = $this_item->business_data['task_group_id'];
-            /* print_r($this_item->business_data);
-              // exit();
-              echo '<pre>';
-              exit();
-              //return; */
-            /*  $create = new DateTime($this_item->business_data['task_creation_date']);
-              $expect = new DateTime($this_item->business_data['task_estimated_day']);
-              $deliver = new DateTime($this_item->business_data['task_end_date']);
-
-
-
-              if($create > $expect || $create > $deliver)
-              {
-              echo 'You can\'t deliver task before creation date';
-              return;
-              }
-
-              $difference =  date_diff($create , $expect);
-
-              $this_item->business_data['task_estimated_day'] = $difference->format("%d days"); */
+           
             $this_item->validate();
+            
+            
 
             if ($this_item->success == FALSE) {
 
-
+                    
                 $data["this_item"] = $this_item;
                 $data["public_data"] = $this->admin_public->DATA;
                 $data["disable_edit"] = false;
 
                 $template_folder = "_templates/" . $this->template_name . "/";
                 $this->load->helper($this->theme_helper);
-                $this->load->view($this->view_folder . '/' . $this->concept . '_edit', $data);
-
+               $this->load->view($this->view_folder . '/' . $this->concept . '_edit', $data);
+                
 
                 echo "<b><center>" . $this_item->error_message . "</center></b>";
                 return;

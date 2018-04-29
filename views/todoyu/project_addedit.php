@@ -165,12 +165,14 @@ automation_target= "done_task_group_list_section"
 automation_action = "reload"
 automation_url = ""
 ></a>
+
+
 <!--   Cancel delete Button HANDLER   -->
 
 <a class="r_automation"
 caller_key = "task_group_edit_form"
 automation_verb = "form_cancel"
-automation_target= "task_delete_section"
+automation_target= "task_group_delete_section"
 automation_action = "clear_modal"
 automation_url = "[get_from_caller]"
 ></a>
@@ -178,15 +180,7 @@ automation_url = "[get_from_caller]"
 
 
 
-<!--   Add LOG Icon HANDLER   -->
 
-<a class="r_automation"
-caller_key = "add_new_log_button"
-automation_verb = "add_new_log"
-automation_target= "log_edit_section"
-automation_action = "load_form_modal"
-automation_url = "[get_from_caller]">
-</a>
 
 <?php
 
@@ -235,7 +229,7 @@ r_theme_section_end();
 r_theme_row_end();
 
 // ---------------------------------------------- TASKS LISTS inprogress SECTION -------------------------------------------------------				  
-echo '<h2>Inprogress Tasks</h2>';
+echo '<h2>Inprogress Task Groups</h2>';
 r_theme_row_start();
 
 r_theme_section_start(12, array("id" => "inprogress_task_group_list_section", "attributes" => array(
@@ -246,7 +240,7 @@ r_theme_section_end();
 r_theme_row_end();
 
 // ---------------------------------------------- TASKS LISTS done SECTION -------------------------------------------------------				  
-echo '<h2>Done Tasks</h2>';
+echo '<h2>Done Task Groups</h2>';
 r_theme_row_start();
 
 r_theme_section_start(12, array("id" => "done_task_group_list_section", "attributes" => array(

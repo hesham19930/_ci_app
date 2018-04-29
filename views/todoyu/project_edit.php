@@ -141,8 +141,12 @@ if (form_error($field_name) != "") {
     $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
-
-$data = ['new'=>'New' ,'in progress'=>'In Progress' , 'done'=>'Done'];
+if($status === 'all')
+{
+    $data = array('inprogress'=>'In Progress' , 'done'=>'Done');
+}else {
+    $data = array('new'=>'New' );
+}
 r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, 0, 1);
 echo '</div></div>';
 

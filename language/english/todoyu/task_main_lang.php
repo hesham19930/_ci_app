@@ -78,7 +78,7 @@
 	$lang[$field_name.'_is_required'] = 	"Required" ;
         
         
-        $field_name=$section."task_estimated_day" ;
+        $field_name=$section."task_estimated_days" ;
 	$lang[$field_name.'_tip'] = 	"_" ;
 	$lang[$field_name.'_label'] = 	"Estimate Date  :" ;
 	$lang[$field_name.'_is_required'] = 	"Required" ;

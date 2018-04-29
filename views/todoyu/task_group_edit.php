@@ -17,7 +17,7 @@ $item = $this_item;
 $input_values = array(); // this is our array 
 
 if (set_value("is_an_action") == "yes") {
-    //echo "ACTION=yes" ;
+    
     foreach ($item->business_data as $key => $value) {
         $input_values[$key] = set_value($key);
     }
@@ -112,7 +112,7 @@ if (form_error($field_name) != "") {
     $SubTip = r_theme_input_error(r_langline($field_name . '_is_required', $lang_section));
 }
 $Label = r_langline($field_name . '_label', $lang_section);
-//r_theme_inputtext_mask($field_name,$input_values[$field_name],$Label , "small",$SubTip ,0,"date-picker");
+
 
 if($mode === 'readonly'){
   r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
@@ -129,7 +129,7 @@ echo '</div></div>';
 echo '<div class="controls-row">'; // START RIGHT HALF ---------------------------------------------
 echo '<div class="span11 m-wrap">';
 
-$field_name = "task_group_estimated_time";
+$field_name = "task_group_estimated_days";
 
 $SubTip = r_langline($field_name . '_tip', $lang_section) . " ";
 if (form_error($field_name) != "") {
@@ -158,8 +158,18 @@ if (form_error($field_name) != "") {
 }
 $Label = r_langline($field_name . '_label', $lang_section);
 
-$data = array('new'=>'New' ,'inprogress'=>'In Progress' , 'done'=>'Done');
-r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, $read_only, 1);
+if($status === 'all')
+{
+    $data = array('inprogress'=>'In Progress' , 'done'=>'Done');
+}else {
+    $data = array('new'=>'New' );
+}
+if($mode === 'readonly'){
+  r_theme_InputText($field_name, $input_values[$field_name], $Label, "meduim", $SubTip, $read_only);
+}else {
+    r_theme_InputSelect($field_name, $input_values[$field_name], $Label, $data, "small", $SubTip, $read_only, 1);
+}
+
 echo '</div></div>';
 
 

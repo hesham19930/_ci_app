@@ -2,7 +2,7 @@
 
 // Master View Section -----------------------------------------------------------------------------------------
 
-	$main_file = "tassk." ; 
+	$main_file = "task." ; 
 	$section = $main_file."master." ; 
 
 	$lang[$section.'page_title'] = "Tasks";

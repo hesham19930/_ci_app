@@ -52,10 +52,17 @@ class Tasks extends Base_Controller {
         $this_item->clear();
         $this_item->read($incoming_id, "", 1);
 
-
+      
+  /* $this->load->model("todoyu/bi_mperson");
+       $this_person = & $this->bi_mperson;
+         $person_id = $this_item->business_data['task_mperson_id'];
+         $this_person->read($person_id, "", 1);
+      $data['mperson_name'] =  $this_person->business_data['mperson_name'];
+      echo $data['mperson_name'];*/
+         
         $data['person_id'] = $this_item->business_data['task_mperson_id'];
         $data["public_data"] = $this->admin_public->DATA;
-
+    
         $data["task_id"] = $incoming_id;
 
 
@@ -154,8 +161,7 @@ class Tasks extends Base_Controller {
         $incoming_id = $this->uri->segment(4, 0);
         $project_id = $this->uri->segment(5, 0);
         $task_group_id = $this->uri->segment(6, 0);
-       // echo $incoming_id. "  " . $project_id . "  " . $task_group_id ; 
-       // return;
+      
         $data['mode'] = 'nothing';
        if($project_id === 'readonly')
        {
@@ -163,7 +169,7 @@ class Tasks extends Base_Controller {
        }
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
-
+            $data['status'] = "all";
 
             if (!$this_item->is_published) {
                 //redirect with error not found object  
@@ -171,19 +177,25 @@ class Tasks extends Base_Controller {
         } else {
             $this_item->business_data['task_project_id'] = $project_id;
             $this_item->business_data['task_group_id'] = $task_group_id;
+            $data['status'] = "new";
         }
-
+       
         // $data['project_id'] = $project_id;
 
         $data["this_controller"] = $this->controller;
 
-
+         $this->load->model("todoyu/bi_mperson");
+       $this_person = & $this->bi_mperson;
+         $person_id = $this_item->business_data['task_mperson_id'];
+         $this_person->read($person_id, "", 1);
+      $data['mperson_name'] =  $this_person->business_data['mperson_name'];
+      
 
         $this->form_validation->set_rules("task_name", "Task Name", "required");
         $this->form_validation->set_rules("task_status", "Task Status", "required");
         $this->form_validation->set_rules("task_mperson_id", "Task To", "required");
         $this->form_validation->set_rules("task_creation_date", "Task Create Date", "required");
-        $this->form_validation->set_rules("task_estimated_day", "Estimated Date", "required");
+        $this->form_validation->set_rules("task_estimated_days", "Estimated Date", "required");
          
         
 
@@ -206,14 +218,16 @@ class Tasks extends Base_Controller {
                     return;
             }
 
-
-
+            
+            
 
             foreach ($this_item->business_data as $key => $value) {
                 if (key_exists($key, $this->input->post())) {
                     $this_item->business_data[$key] = $this->input->post($key);
+                  
                 }
             }
+           
           /*  $create = new DateTime($this_item->business_data['task_creation_date']);
             $expect = new DateTime($this_item->business_data['task_estimated_day']);
             $deliver = new DateTime($this_item->business_data['task_end_date']);

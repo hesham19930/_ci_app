@@ -57,8 +57,8 @@ class Task_groups extends Base_Controller {
         $this_item = & $this->main_class;
         $this_item->clear();
         $this_item->read($incoming_id, "", 1);
-     $project_id = $this_item->business_data['task_group_project_id'];
-       
+        $project_id = $this_item->business_data['task_group_project_id'];
+
 
         $data["public_data"] = $this->admin_public->DATA;
 
@@ -162,24 +162,24 @@ class Task_groups extends Base_Controller {
 
         $incoming_id = $this->uri->segment(4, 0);
         $project_id = $this->uri->segment(5, 0);
-       $data['mode'] = 'nothing';
-       
-          if($project_id === 'readonly')
-          {
-          $data['mode'] = $project_id;
-          }
+        $data['mode'] = 'nothing';
+
+        if ($project_id === 'readonly') {
+            $data['mode'] = $project_id;
+        }
         if ($incoming_id != 0) {
             $this_item->Read($incoming_id, "", 1);
-
+            $data['status'] = "all";
 
             if (!$this_item->is_published) {
                 //redirect with error not found object  
             }
         } else {
             $this_item->business_data['task_group_project_id'] = $project_id;
+            $data['status'] = "new";
         }
 
-       
+
 
         $data["this_controller"] = $this->controller;
 
@@ -189,7 +189,7 @@ class Task_groups extends Base_Controller {
         $this->form_validation->set_rules("task_group_status", "Task Group Status", "required");
 
         $this->form_validation->set_rules("task_group_creation_date", "Create Date", "required");
-        $this->form_validation->set_rules("task_group_estimated_time", "Estimated Date", "required");
+        $this->form_validation->set_rules("task_group_estimated_days", "Estimated Date", "required");
 
 
 
@@ -220,6 +220,12 @@ class Task_groups extends Base_Controller {
                     $this_item->business_data[$key] = $this->input->post($key);
                 }
             }
+            $task_group_id = $this_item->business_data['task_group_id'];
+            /* print_r($this_item->business_data);
+              // exit();
+              echo '<pre>';
+              exit();
+              //return; */
             /*  $create = new DateTime($this_item->business_data['task_creation_date']);
               $expect = new DateTime($this_item->business_data['task_estimated_day']);
               $deliver = new DateTime($this_item->business_data['task_end_date']);
@@ -250,17 +256,101 @@ class Task_groups extends Base_Controller {
 
 
                 echo "<b><center>" . $this_item->error_message . "</center></b>";
-
                 return;
-            } else {
-
-
+            }
+            else {
 
                 $this_item->update();
                 echo "FINE: OK :" . "<a msg=record_update_success /><ID>" . $this_item->ID() . "</ID>";
             }
 
             return;
+        }
+    }
+
+    public function ajax_delete() {
+
+        $access_component_name = $this->security_component;
+        $access_verb = "delete";
+
+        if (!$this->_top_function($access_component_name))
+           // return;
+        $data = array();
+        $data["public_data"] = $this->admin_public->DATA;
+        if ($this->admin_public->verify_access($access_verb, 0) == false)
+            return say_no_access($access_component_name, $access_verb);
+
+        // load & read Existing object  ----------------------------------------------------
+        $this_item = & $this->main_class;
+        $this_item->clear();
+
+        $incoming_id = $this->uri->segment(4, 0);
+
+        if ($incoming_id != 0) {
+            $this_item->Read($incoming_id, "", 1);
+            if (!$this_item->is_published) {
+                //redirect with error not found object  
+            }
+        }
+
+        //setting the validation rules ,, 
+
+        if (!$this->input->post("is_an_action")) {
+            $data["this_item"] = $this_item;
+            $data["public_data"] = $this->admin_public->DATA;
+
+            $data["this_concept"] = $this->concept;
+            $data["this_controller"] = $this->controller;
+            $data["this_id_field"] = $this->id_field;
+
+
+            $template_folder = "_templates/" . $this->template_name . "/";
+            $this->load->helper($this->theme_helper);
+
+            $this->load->view('_general/concept_delete_aj', $data);
+
+            return;
+        } else {
+            $this_id = $this->input->post($this_item->id_field_name);
+
+
+            $this_item->read($this_id, "", 1);
+            $this_name = $this_item->get_name();
+
+            $this->lang->load("business/general", $this->admin_public->DATA["system_lang"]);
+
+            //------------ validation before delete and get the pop-up message ----- 
+            $returned_delete_message = $this_item->delete_validate($this_id);
+
+            if ($returned_delete_message == "") {
+                //echo"!!!!!!!!!!!!";return;
+                $this_item->delete($this_id);
+            } else {
+                //echo" delete_message >>> $returned_delete_message<br>";return;
+            }
+
+            if ($this_item->success === false) {
+               // return;
+                echo '<div class="alert alert-error">';
+                echo '<h4><i class="icon-warning-sign big"></i>  ' . r_langline("general.delete_error") . "</h4><hr/>";
+                echo "<h4>[ " . $this_name . " ] $returned_delete_message </h4><br/>" . $this_item->error_message;
+                echo '</div></div></div>';
+                echo '<button class="btn blue ajax_action right master_font" caller_verb="form_cancel" caller_id="' . $this->concept . '_edit_form">';
+                echo r_langline("general.button_close");
+                echo '</button>';
+                return;
+            } else {
+
+                echo '<div class="alert alert-success">';
+                echo '<h4><i class="icon-ok-sign big"></i>  ' . r_langline("general.delete_success") . "</h4><hr/>";
+                echo "<h4>[ " . $this_name . " ]</h4><br/>";
+                echo '</div></div></div>';
+                echo '<button class="btn blue ajax_action right master_font" caller_verb="form_cancel" caller_id="' . $this->concept . '_edit_form">';
+                echo r_langline("general.button_close");
+                echo '</button><a msg=record_update_success /><ID>';
+
+                return;
+            }
         }
     }
 

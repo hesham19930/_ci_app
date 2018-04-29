@@ -33,7 +33,7 @@
 	$lang[$section.'task_group_description'] = 	"Task Group Description  " ;
         $lang[$section.'task_group_project_id'] = 	"Project Name " ;
          $lang[$section.'task_group_creation_date'] = 	"Creation Date  " ;
-	 $lang[$section.'task_group_estimated_time'] = 	"Estemated Days  " ;
+	 $lang[$section.'task_group_estimated_days'] = 	"Estemated Days  " ;
          $lang[$section.'task_group_end_date'] = 	"Delivery Date " ;
          $lang[$section.'task_group_status'] = 	"Task Group Status  " ;
 	
@@ -78,7 +78,7 @@
 	$lang[$field_name.'_is_required'] = 	"Required" ;
         
         
-        $field_name=$section."task_group_estimated_time" ;
+        $field_name=$section."task_group_estimated_days" ;
 	$lang[$field_name.'_tip'] = 	"_" ;
 	$lang[$field_name.'_label'] = 	"Estimate Date  :" ;
 	$lang[$field_name.'_is_required'] = 	"Required" ;
@@ -86,7 +86,7 @@
         
         $field_name=$section."task_group_status" ;
 	$lang[$field_name.'_tip'] = 	"_" ;
-	$lang[$field_name.'_label'] = 	"Task Status  :" ;
+	$lang[$field_name.'_label'] = 	"Task Group Status  :" ;
 	$lang[$field_name.'_is_required'] = 	"Required" ;
         
         

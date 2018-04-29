@@ -28,7 +28,7 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
             "task_group_project_id" => 0,
             "task_group_status" => "",
             "task_group_creation_date" => 0,
-            "task_group_estimated_time" => 0,
+            "task_group_estimated_days" => 0,
             "task_group_end_date" => 0,
            
         );
@@ -69,9 +69,9 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
             "task_group_description" => "Description",
             "task_group_status" => "Status",
             "task_group_creation_date" => "Create Date",
-            "task_group_estimated_time" => "Estimated Days",
+            "task_group_estimated_days" => "Estimated Days",
             "task_group_end_date" => "Group End",
-            'project_name' => 'project_name',
+            'project_name' => 'Project Name',
           
             
         );
@@ -97,8 +97,104 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
         $this->list_edit_Col = 2;
 
        $this->list_items_where["project_tasks"] = array("task_group_project_id" => "task_group_s.task_group_project_id", "task_group_status" => "task_group_s.task_group_status");
-      //  $this->list_items_where["mperson_tasks"] = array("task_mperson_id" => "task_s.task_mperson_id", "task_status" => "task_s.task_status");
-
-      //  $this->list_items_where["all"] = array("task_group_project_id" => "task_group_s.task_group_project_id");
+      
     }
+    
+    
+    
+    public function validate() {
+        
+         ////////////////////////////////////////////////////////////////////////
+        //// VALIDATE Creation date AND end date
+        /////////////////////////////////////////////////////////////////////
+        
+            $create = $this->business_data['task_group_creation_date'];
+            $expect = $this->business_data['task_group_estimated_days'];
+            $deliver = $this->business_data['task_group_end_date'];
+
+            if ($create > $expect || $create > $deliver) {
+                $this->error_message = 'You can\'t deliver task group before creation date';
+                return;
+            }else if($expect < date("Y-m-d")) {
+                $this->error_message = 'You Can\'t estimate date that already passed';
+                return;
+          
+            }
+        ////////////////////////////////////////////////////////////////////////
+        //// VALIDATE FOR EDIT CHECK TASKS
+        /////////////////////////////////////////////////////////////////////
+      $task_group_id =  $this->business_data['task_group_id'];
+   
+        $status = $this->business_data['task_group_status'];
+        if ($status === "done") {
+            $task_group_sql_statement = "SELECT task_status FROM task_s		   
+				where task_s.task_group_id = $task_group_id 
+				";
+            
+		$group_query = $this->db->query($task_group_sql_statement);
+		$group_array = $group_query->result_array($group_query);	
+		
+                foreach($group_array as $group)
+                {
+                  
+                    if($group['task_status'] == "new"|| $group['task_status'] == "inprogress")
+                    {
+                      $this->error_message = "Sorry You Can't Set This Group As Done As Still Has New Or Inprogress Tasks ";
+				$this->success = false  ;
+				return ; 
+                    }
+                      
+                    
+                }
+               
+        }
+        $this->success = true ;
+		return ; 
+    }
+    
+    
+    
+    public function more_config_row(rTableRow $itable_row, Array $data_row, $view_name) {
+         
+       $expect = new DateTime($data_row["task_group_estimated_days"]);
+     
+        $difference =  date_diff(new DateTime() , $expect);
+         
+      $itable_row->Cells["task_group_estimated_days"]->Value = $difference->format("%d Days %h Hours and %i Minuts");
+       
+    }
+    
+    
+
+    public function delete_validate($task_group_id)
+	{
+		//---------------------------- check in tasks --------------------------		
+		
+		$task_group_sql_statement = "SELECT task_status FROM task_s		   
+				where task_s.task_group_id = $task_group_id 
+				";
+                
+		$group_query = $this->db->query($task_group_sql_statement);
+		$group_array = $group_query->result_array($group_query);	
+		
+                foreach($group_array as $group)
+                {
+                  
+                    if($group['task_status'] == "new"|| $group['task_status'] == "inprogress")
+                    {
+                       $delete_message = "Sorry You Can't Delete This Group As Still have New or Inprogress Tasks";
+				
+				return $delete_message;
+                    }else {
+                       $delete_message = "";
+				
+				return $delete_message;
+                    }
+                }
+               
+               
+		
+	}		
 }
+
+

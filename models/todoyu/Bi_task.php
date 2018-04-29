@@ -30,7 +30,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_group_id" => 0,
             "task_status" => "",
             "task_creation_date" => 0,
-            "task_estimated_day" => 0,
+            "task_estimated_days" => 0,
             "task_end_date" => 0,
             "task_mperson_id" => 0,
             "project_name" => "",
@@ -71,7 +71,7 @@ class Bi_task extends Simple_business implements iSimple_Business {
             "task_status" => "Status",
             "mperson_name" => "Task Assign To",
             "task_creation_date" => "Create Date",
-            "task_estimated_day" => "Estimated Days",
+            "task_estimated_days" => "Estimated Days",
             "task_end_date" => "Task End",
             "project_name" => "Project Name",
             "task_group_name" => "Group Name",
@@ -115,28 +115,41 @@ class Bi_task extends Simple_business implements iSimple_Business {
    
     
     
-   /* public function validate()
+    public function validate()
 	{		
-	$create = new DateTime($this->business_data['task_creation_date']);
-            $expect = new DateTime($this->business_data['task_estimated_day']);
-            $deliver = new DateTime($this->business_data['task_end_date']);
+	$create = $this->business_data['task_creation_date'];
+            $expect = $this->business_data['task_estimated_days'];
+            $deliver = $this->business_data['task_end_date'];
           
          
             
             if($create > $expect || $create > $deliver)
             {
-                $this->error_message = "sorry you can\'t make dilvery or estimate date before create date ";
-                $this->success = FALSE;
-               return;
+                $this->error_message = 'You can\'t deliver task before creation date';
+              
+                return;
+              
+            }else if($expect < date("Y-m-d")) {
+                $this->error_message = 'You Can\'t estimate date that already passed';
+               
+                return;
+          
             }
-            
-                $difference =  date_diff($create , $expect);
-   
-                 $this->business_data['task_estimated_day'] = $difference->format("%d days");
-			
-		$this->success = true ;
+            $this->success = true ;
 		return ; 
+            
 		
-	}*/
+	}
+        
+        
+        public function more_config_row(rTableRow $itable_row, Array $data_row, $view_name) {
+         
+       $expect = new DateTime($data_row["task_estimated_days"]);
+     
+        $difference =  date_diff(new DateTime() , $expect);
+         
+      $itable_row->Cells["task_estimated_days"]->Value = $difference->format("%d Days %h Hours and %i Minuts");
+       
+    }
 
 }

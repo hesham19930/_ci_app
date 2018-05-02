@@ -180,7 +180,7 @@ class Tasks extends Base_Controller {
             $data['status'] = "new";
         }
        
-       
+        // $data['project_id'] = $project_id;
 
         $data["this_controller"] = $this->controller;
 
@@ -192,7 +192,7 @@ class Tasks extends Base_Controller {
       
 
         $this->form_validation->set_rules("task_name", "Task Name", "required");
-      //  $this->form_validation->set_rules("task_status", "Task Status", "required");
+        $this->form_validation->set_rules("task_status", "Task Status", "required");
         $this->form_validation->set_rules("task_mperson_id", "Task To", "required");
         $this->form_validation->set_rules("task_creation_date", "Task Create Date", "required");
         $this->form_validation->set_rules("task_estimated_days", "Estimated Date", "required");
@@ -228,7 +228,21 @@ class Tasks extends Base_Controller {
                 }
             }
            
+          /*  $create = new DateTime($this_item->business_data['task_creation_date']);
+            $expect = new DateTime($this_item->business_data['task_estimated_day']);
+            $deliver = new DateTime($this_item->business_data['task_end_date']);
           
+         
+            
+            if($create > $expect || $create > $deliver)
+            {
+                echo 'You can\'t deliver task before creation date';
+                return;
+            }
+            
+           $difference =  date_diff($create , $expect);
+   
+       $this_item->business_data['task_estimated_day'] = $difference->format("%d days");*/
             $this_item->validate();
 
             if ($this_item->success == FALSE) {
@@ -248,9 +262,10 @@ class Tasks extends Base_Controller {
                 return;
             } else {
 
+               
+
                 $this_item->update();
-                  echo "FINE: OK :" . "<a msg=record_update_success /><ID>" . $this_item->ID() . "</ID>";
-                  return;
+                echo "FINE: OK :" . "<a msg=record_update_success /><ID>" . $this_item->ID() . "</ID>";
             }
 
             return;

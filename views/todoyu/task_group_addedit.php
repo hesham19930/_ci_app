@@ -51,28 +51,11 @@ automation_url = "[get_from_caller]"
 
 <a class="r_automation"
 caller_key = "task_edit_form"
-automation_verb = "post_form_success"
-automation_target= "task_edit_section"
-automation_action = "clear_modal"
-automation_url = "[get_from_caller]"
-></a>
-
-
-<a class="r_automation"
-caller_key = "task_edit_form"
 automation_verb = "post_form"
 automation_target= "task_edit_section"
 automation_action = "clear_modal"
 automation_url = "[get_from_caller]"
 ></a>
-
-<!--<a class="r_automation"
-caller_key = "task_edit_form"
-automation_verb = "post_form_success"
-automation_target= "edit_task_group_body"
-automation_action = "clear_modal"
-automation_url = "[get_from_caller]"
-></a>-->
 
 <!--   Refresh List After save HANDLER   -->
 <!--   Refresh NEW HANDLER   -->

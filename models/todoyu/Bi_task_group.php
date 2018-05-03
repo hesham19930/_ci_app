@@ -148,6 +148,24 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
                 }
                
         }
+        
+        ////////////////////////////////////////////////////////////////////////
+        //// VALIDATE FOR End Project Date
+        /////////////////////////////////////////////////////////////////////
+        $project_id =  $this->business_data['task_group_project_id'];
+        $query = $this->db->get_where('project_s', array('project_id' => $project_id));
+       
+        $project_end_date = $query->row()->project_end_time;
+            
+
+                
+                if($create > $project_end_date || $expect > $project_end_date || $deliver > $project_end_date )
+                {
+                    $this->error_message = "Sorry You Can't Set Date That Pass The Deadline Date Of This Project That Is ".$project_end_date;
+				$this->success = false  ;
+				return ; 
+                }
+        
         $this->success = true ;
 		return ; 
     }
@@ -160,7 +178,7 @@ class Bi_task_group extends Simple_business implements iSimple_Business{
      
         $difference =  date_diff(new DateTime() , $expect);
          
-      $itable_row->Cells["task_group_estimated_days"]->Value = $difference->format("%d Days %h Hours and %i Minuts");
+      $itable_row->Cells["task_group_estimated_days"]->Value = $difference->format("%d Days %h Hours ");
        
     }
     

@@ -170,6 +170,20 @@ total_today();
                 </a>
             </div>
             
+            <div class="tile bg-red pull-right" >
+                <a href="<?php echo site_url('todoyu/mpersons'); ?>" >
+                    <div class="tile-body"><i class="icon-user"></i></div>
+                    <div class="tile-object">
+                        <div class="name" style="font-size: 10pt;">
+                            <?php echo r_langline('mpersons', "mperson.master."); ?>
+                        </div>
+                        <div class="number">
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
              <div class="tile bg-green pull-right" >
                 <a href="<?php echo site_url('todoyu/projects'); ?>" >
                     <div class="tile-body"><i class="icon-cogs"></i></div>

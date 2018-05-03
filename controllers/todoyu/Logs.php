@@ -64,7 +64,7 @@ class Logs extends Base_Controller {
         $data["this_name_field_ar"] = "log_name";
        
       
-        $data["options"]["hide_add_button"] = false;
+        $data["options"]["hide_add_button"] = true;
         $data["options"]["disable_line_add"] = false;
         $data["options"]["disable_line_edit"] = false;
         $data["options"]["disable_line_delete"] = false;

@@ -51,7 +51,7 @@ automation_url = "[get_from_caller]"
 
 <a class="r_automation"
 caller_key = "task_edit_form"
-automation_verb = "post_form"
+automation_verb = "post_form_success"
 automation_target= "task_edit_section"
 automation_action = "clear_modal"
 automation_url = "[get_from_caller]"

@@ -16,7 +16,7 @@ class Bi_client extends Simple_business implements iSimple_Business {
         $this->business_data = array(
             "client_id" => 0,
             "client_name" => "",
-            "client_phone" => 0,
+            "client_phone" => "",
             "client_address" => "",
             "client_email" => "",
             "client_last_edit_user_id" => 0,

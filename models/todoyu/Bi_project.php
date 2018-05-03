@@ -104,7 +104,7 @@ class Bi_project extends Simple_business implements iSimple_Business {
      
         $difference =  date_diff(new DateTime() , $expect);
          
-      $itable_row->Cells["project_estimated_days"]->Value = $difference->format("%d Days %h Hours and %i Minuts");
+      $itable_row->Cells["project_estimated_days"]->Value = $difference->format("%d Days %h Hours ");
        
     }
 
